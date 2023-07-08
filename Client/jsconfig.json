@@ -22,7 +22,7 @@
             ],
             "@Constants/*": [
                 "Constants/*"
-            ],
+            ]
         }
     },
     "include": [
