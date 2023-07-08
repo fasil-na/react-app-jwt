@@ -54,15 +54,15 @@ export const LoginPost = async (req, res, next) => {
                 })
                     .status(200)
                     .send({ userSignUp });
-                
+
             } else {
                 userSignUp.Status = false;
-                userSignUp.message = "Please enter correct Password";  
+                userSignUp.message = "Please enter correct Password";
                 res.send({ userSignUp });
             }
         } else {
             userSignUp.Status = false;
-            userSignUp.message = "Please enter correct Email"; 
+            userSignUp.message = "Please enter correct Email";
             res.send({ userSignUp });
         }
 
@@ -73,5 +73,24 @@ export const LoginPost = async (req, res, next) => {
 
 
 };
+export const ProfileDetailsGet = async (req, res, next) => {
+    try {
+        // Fetch user details from MongoDB
+        const user = await req.user;
+
+        // Check if user exists
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // User details found, send the response
+        res.json(user); // Sending the user details as a JSON response
+
+    } catch (error) {
+        // Handle the error
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+}
 
 
