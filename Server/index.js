@@ -1,20 +1,21 @@
+import cors from 'cors';
 import express from 'express'
 import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
-import cors from 'cors';
 
 const app=express();
 
+app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(cors());
 
 import adminRouter from './routes/admin.js'
 import userRouter from './routes/users.js'
 
-app.use('/admin',adminRouter)
 app.use('/',userRouter)
+app.use('/admin',adminRouter)
+app.use(express.static('public'));
 
 const PORT = 4000;
 

@@ -7,7 +7,6 @@ import UserRegister from '../Components/Clients/Login/Register';
 
 const PublicRoutes = () => {
     const { PUBLIC } = ROUTES;
-
     return (<Routes>
         <Route path='/' element={<AuthRoute requireAuth={false} />}>
             <Route path={PUBLIC.LOGIN} element={<Login />} />

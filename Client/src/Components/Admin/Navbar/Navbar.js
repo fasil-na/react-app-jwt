@@ -42,7 +42,8 @@ function Navbar() {
                         <li class="nav-item">
                             <a class="nav-link active" onClick={() => {
 
-                                navigate("/admin/client_table");
+                                navigate(PRIVATE.ADMIN_ROUTE.CLIENT_LIST);
+
                             }}>
                                 <i>Clients</i>
                             </a>

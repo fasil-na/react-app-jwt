@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 function Header() {
-    const { PUBLIC } = ROUTES;
+    const { PUBLIC,PRIVATE } = ROUTES;
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const Logout = () => {
@@ -49,7 +49,7 @@ function Header() {
                                 <a
                                     class="nav-link active"
                                     onClick={() => {
-                                        navigate("/user-profile");
+                                        navigate(PRIVATE.USER_ROUTE.USER_PROFILE);
                                     }}
                                     aria-current="page"
                                 >

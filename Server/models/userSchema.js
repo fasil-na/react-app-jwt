@@ -18,12 +18,16 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        image: {
-            type: String,
-        },
         isBlocked: {
             type: Boolean,
             default: false
+        },
+        image: {
+            type: String
+        },
+        isAdmin: {
+            type: Boolean,
+            default: false,
         },
     },
 );
