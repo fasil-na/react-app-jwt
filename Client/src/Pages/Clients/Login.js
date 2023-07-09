@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { post } from 'config';
 import { ROUTES } from "Routes/Routing";
 import { useDispatch } from "react-redux";
@@ -15,10 +15,9 @@ function Login() {
   const dispatch = useDispatch();
 
   //Local states
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [ErrMsg, setErrMsg] = React.useState("");
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [ErrMsg, setErrMsg] = useState("");
 
   //Login post call
   const LoginFormPost = async (e) => {
@@ -45,6 +44,11 @@ function Login() {
       console.log('error', e);
     }
   }
+
+  //clear all locastorage items when mounting
+  React.useEffect(() => {
+    localStorage.clear();
+  }, [])
 
   return (
     <div className='outer'>

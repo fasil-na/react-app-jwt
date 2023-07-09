@@ -2,6 +2,12 @@
 import bcrypt from 'bcrypt'
 import User from '../models/userSchema.js'
 import { generateAuthToken } from '../middleware/auth.js';
+import fs from 'fs';
+
+// const adminCredentials = {
+//     email: "admin@gmail.com",
+//     password: "123",
+// }
 
 export const Register = async (req, res, next) => {
     try {
@@ -30,7 +36,16 @@ export const LoginPost = async (req, res, next) => {
         message: null,
         token: null,
         name: null,
+        isAdmin: null
     };
+
+    // const checkIsAdmin = (email, password) => {
+    //     if (adminCredentials.email === email && adminCredentials.password === password) {
+    //         return true
+    //     } else {
+    //         return false
+    //     }
+    // }
     try {
         const userDetails = req.body;
         const userExist = await User.findOne({ email: userDetails.email });
@@ -43,6 +58,8 @@ export const LoginPost = async (req, res, next) => {
                 userSignUp.message = "You are logged";
                 userSignUp.token = token;
                 userSignUp.name = userExist.name;
+                // userSignUp.isAdmin = checkIsAdmin(userDetails.email, userDetails.password);
+                userSignUp.isAdmin = userExist.isAdmin
 
                 const obj = {
                     token,
@@ -73,24 +90,96 @@ export const LoginPost = async (req, res, next) => {
 
 
 };
+// export const ProfileDetailsGet = async (req, res, next) => {
+//     try {
+//         const user = await req.user;
+
+//         if (!user) {
+//             return res.status(404).json({ error: 'User not found' });
+//         }
+
+//         // User details found, send the response
+//         res.json(user);
+
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ error: 'Server error' });
+//     }
+// }
 export const ProfileDetailsGet = async (req, res, next) => {
     try {
-        // Fetch user details from MongoDB
-        const user = await req.user;
+        const userId = req.user._id;
 
-        // Check if user exists
+        // Fetch the user document from the database with populated image field
+        const user = await User.findById(userId).populate('image');
+
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        // User details found, send the response
-        res.json(user); // Sending the user details as a JSON response
+        // Extract the image data from the user object
+        const imageData = user.image;
+        const imageUrl = `/images/${imageData}`;
 
+        // Create a modified user object to send in the response
+        const modifiedUser = {
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            phone: user.phone,
+            imageUrl: imageUrl
+        };
+
+        // Send the modified user object in the response
+        res.json(modifiedUser);
     } catch (error) {
-        // Handle the error
         console.error(error);
         res.status(500).json({ error: 'Server error' });
     }
-}
+};
+
+
+
+export const profileImageEdit = async (req, res, next) => {
+    if (!req.file) {
+        return res.status(400).json({ message: "No image provided" });
+    }
+    const id = req.user._id;
+
+    try {
+        const { originalname, buffer, path } = req.file;
+        const fileExtension = originalname.split('.').pop();
+        const fileName = `image_${id}.${fileExtension}`; // Customize the file name as desired
+        const filePath = `public/images/${fileName}`;
+        await User.updateOne({ _id: id }, {
+            $set: {
+                image: fileName
+            }
+        });
+
+        fs.writeFileSync(filePath, buffer);
+
+        return res.json({
+            message: "Profile image uploaded successfully", data: {
+                _id: req.user._id,
+                name: req.user.name,
+                email: req.user.email,
+                phone: req.user.phone,
+                image: fileName ? `/images/${fileName}` : null
+            }
+        });
+    } catch (error) {
+        console.error("Error uploading profile image:", error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+
+
+
+
+
+
+
 
 
