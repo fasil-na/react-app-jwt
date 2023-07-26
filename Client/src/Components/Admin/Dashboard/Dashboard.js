@@ -2,8 +2,8 @@ import React from 'react'
 
 function Dashboard() {
     return (
-        <div>
-            <img style={{ marginTop: '10px', width: "100%" }} src="https://wallpapercave.com/wp/wp4923992.png" alt="" />
+        <div className='text-center mt-5'  >
+            <h2>Welcome</h2>
 
         </div>
     )

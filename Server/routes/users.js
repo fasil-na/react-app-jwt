@@ -23,4 +23,8 @@ userRoute.get("/getClientList", verifyToken, clientListGet);
 userRoute.delete("/delete-client/:id", verifyToken, clientDelete);
 userRoute.put("/update-client/:id", verifyToken, clientUpdate);
 
+
+
+
+
 export default userRoute;

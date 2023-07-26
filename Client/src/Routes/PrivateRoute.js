@@ -6,7 +6,7 @@ import AdminHome from '../Pages/Admin/Home';
 import ClientHome from '../Pages/Clients/Home';
 import UserProfile from 'Pages/Clients/UserProfile/UserProfile';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import ClientList from 'Pages/Clients/ClientList/ClientList';
+import ClientList from 'Pages/Admin/ClientList/ClientList';
 import { NotFound } from 'Pages/NotFound';
 
 const PrivateRoute = () => {

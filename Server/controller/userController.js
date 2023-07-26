@@ -39,13 +39,7 @@ export const LoginPost = async (req, res, next) => {
         isAdmin: null
     };
 
-    // const checkIsAdmin = (email, password) => {
-    //     if (adminCredentials.email === email && adminCredentials.password === password) {
-    //         return true
-    //     } else {
-    //         return false
-    //     }
-    // }
+
     try {
         const userDetails = req.body;
         const userExist = await User.findOne({ email: userDetails.email });
@@ -58,7 +52,6 @@ export const LoginPost = async (req, res, next) => {
                 userSignUp.message = "You are logged";
                 userSignUp.token = token;
                 userSignUp.name = userExist.name;
-                // userSignUp.isAdmin = checkIsAdmin(userDetails.email, userDetails.password);
                 userSignUp.isAdmin = userExist.isAdmin
 
                 const obj = {
@@ -90,22 +83,7 @@ export const LoginPost = async (req, res, next) => {
 
 
 };
-// export const ProfileDetailsGet = async (req, res, next) => {
-//     try {
-//         const user = await req.user;
 
-//         if (!user) {
-//             return res.status(404).json({ error: 'User not found' });
-//         }
-
-//         // User details found, send the response
-//         res.json(user);
-
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ error: 'Server error' });
-//     }
-// }
 export const ProfileDetailsGet = async (req, res, next) => {
     try {
         const userId = req.user._id;

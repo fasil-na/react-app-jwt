@@ -7,7 +7,7 @@ function ClientHome() {
     <div>
 
       <Header />
-      {/* <UserHome/> */}
+      <UserHome/>
     </div>
   )
 }

@@ -42,6 +42,9 @@ function ClientTable() {
     }
   }
 
+
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // Handle form submission logic here
@@ -78,6 +81,11 @@ function ClientTable() {
                 <td>
                   <button className="btn btn-primary mx-2" onClick={() => handleModalEdit(user._id)}>UPDATE</button>
                   <button className="btn btn-danger mx-2" onClick={() => handleDelete(user._id)}>DELETE</button>
+
+
+
+
+           
                 </td>
               </tr>
             ))}

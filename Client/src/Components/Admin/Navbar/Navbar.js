@@ -32,7 +32,7 @@ function Navbar() {
                             <a
                                 class="nav-link active"
                                 onClick={() => {
-                                    navigate("/admin/home");
+                                    navigate("/home");
                                 }}
                                 aria-current="page"
                             >
