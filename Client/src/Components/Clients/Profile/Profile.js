@@ -6,6 +6,7 @@ import { post } from 'config/index';
 import { userAPI } from 'Constants/API';
 
 function Profile() {
+  const [toggle, setToggle] = useState(false)
   const [profileDetails, setProfileDetails] = useState(null);
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -33,10 +34,10 @@ function Profile() {
       }).then((response) => {
         if (response && response.message && response.data) {
           setProfileDetails(response.data)
+          setToggle(!toggle)
         }
       });
     } catch (error) {
-      // Handle error
       console.error('Error uploading image:', error);
     }
   };
@@ -54,9 +55,15 @@ function Profile() {
     <div className='outer'>
       <div className="image-container">
         <img src={`${userAPI}${profileDetails?.image}?${Date.now()}`} width="50%" alt="" />
-        <input type="file" onChange={handleImageChange} />
-        <button onClick={handleImageUpload}>Upload Image</button>
-        {/* <span className="edit-icon"><i className="fas fa-edit"></i></span> */}
+        {toggle ?
+
+          <>
+            <input className='form-control mx-2' type="file" onChange={handleImageChange} />
+            <button className='btn btn-success' onClick={handleImageUpload}>Upload</button>
+
+          </> : ''
+        }
+        <span className="edit-icon" onClick={() => setToggle(!toggle)}><i className="fas fa-edit"></i></span>
       </div>
       <h1><i className="fa-solid fa-user"></i> : {profileDetails?.name}</h1>
       <h1><i className="fa-solid fa-envelope"></i> : {profileDetails?.email}</h1>

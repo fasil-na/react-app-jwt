@@ -8,7 +8,7 @@ function Header() {
     const { PUBLIC,PRIVATE } = ROUTES;
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const Logout = () => {
+    const handleLogout = () => {
         dispatch(authAction.setLogout());
         navigate(PUBLIC.LOGIN);
     };
@@ -61,7 +61,7 @@ function Header() {
                             <li class="nav-item">
                                 <a
                                     class="nav-link active"
-                                    onClick={Logout}
+                                    onClick={handleLogout}
                                     aria-current="page"
                                 >
                                     <i>Logout</i>

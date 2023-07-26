@@ -3,7 +3,7 @@ import authSlice from 'container/auth.slice';
 
 const rootReducer = {
     authState: authSlice,
-    categoryState: categorySlice,
+    // categoryState: categorySlice,
 }
 
 export default rootReducer;

@@ -5,5 +5,7 @@ export const API_URL = {
     CLIENT_LIST: '/getClientList',
     PROFILE_IMAGE_EDIT: '/profile_image_edit',
     DELETE_CLIENT: '/delete-client',
+
+
     UPDATE_CLIENT: '/update-client',
 }
